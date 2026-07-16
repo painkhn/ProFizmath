@@ -27,7 +27,10 @@
         "@vueuse/core": "^14.3.0",
         "class-variance-authority": "^0.7.1",
         "clsx": "^2.1.1",
+        "lucide-vue-next": "^1.0.0",
+        "radix-vue": "^1.9.17",
         "reka-ui": "^2.10.1",
-        "tailwind-merge": "^3.6.0"
+        "tailwind-merge": "^3.6.0",
+        "tailwindcss-animate": "^1.0.7"
     }
 }
