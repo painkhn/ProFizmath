@@ -6,7 +6,8 @@
 
 @layer base {
   .theme {
-    --font-heading: var(--font-mono)}
+    --font-heading: var(--font-mono)
+  }
 
   :root {
     --background: 0 0% 100%;
@@ -62,8 +63,14 @@
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%
   }
-  input {
-    --ring-offset-color: transparent;
+
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 1000px #000 inset !important;
+    -webkit-text-fill-color: #fff !important;
+    transition: background-color 5000s ease-in-out 0s;
   }
 }
 
