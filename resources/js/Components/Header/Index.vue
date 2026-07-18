@@ -45,7 +45,7 @@ const open = ref(false)
                     </li>
                 </ul>
             </div>
-            <li class="justify-self-end flex gap-4 pr-8">
+            <li class="justify-self-end items-center flex gap-4 pr-8">
                 <AuthModal v-if="!$page.props.auth.user" />
                 <IconButton v-else>
                     <svg class="w-6 h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
@@ -63,15 +63,17 @@ const open = ref(false)
                             clip-rule="evenodd" />
                     </svg>
                 </IconButton>
-                <IconButton>
-                    <svg class="w-6 h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
-                        height="24" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M10 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16Z" />
-                        <path fill-rule="evenodd"
-                            d="M21.707 21.707a1 1 0 0 1-1.414 0l-3.5-3.5a1 1 0 0 1 1.414-1.414l3.5 3.5a1 1 0 0 1 0 1.414Z"
-                            clip-rule="evenodd" />
-                    </svg>
-                </IconButton>
+                <div>
+                    <IconButton>
+                        <svg class="w-6 h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                            height="24" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M10 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16Z" />
+                            <path fill-rule="evenodd"
+                                d="M21.707 21.707a1 1 0 0 1-1.414 0l-3.5-3.5a1 1 0 0 1 1.414-1.414l3.5 3.5a1 1 0 0 1 0 1.414Z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </IconButton>
+                </div>
             </li>
         </div>
     </header>
