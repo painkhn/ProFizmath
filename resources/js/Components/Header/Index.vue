@@ -9,7 +9,7 @@ const navLinks = [
     },
     {
         value: 'Курсы',
-        href: '/'
+        href: 'courses'
     },
     {
         value: 'Эфиры',

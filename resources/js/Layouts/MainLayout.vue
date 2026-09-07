@@ -5,7 +5,7 @@ import Header from '@/Components/Header/Index.vue'
 <template>
     <Header />
 
-    <main>
+    <main class="p-8">
         <slot />
     </main>
 </template>
