@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Subject;
 use App\Http\Requests\StoreSubjectRequest;
 use App\Http\Requests\UpdateSubjectRequest;
+use function Laravel\Prompts\title;
 
 class SubjectController extends Controller
 {
@@ -29,7 +30,9 @@ class SubjectController extends Controller
      */
     public function store(StoreSubjectRequest $request)
     {
-        //
+        Subject::create([
+            'title' => $request->title,
+        ]);
     }
 
     /**

@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SubjectController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -16,10 +17,6 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -27,12 +24,17 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::controller(CourseController::class)->group(function() {
+    Route::get('/course/{title}', 'index')->name('course.index');
     Route::get('/courses', 'list')->name('course.list');
     Route::post('/course/store', 'store')->name('course.store');
 });
 
 Route::controller(AdminController::class)->group(function() {
     Route::get('/admin', 'index')->name('admin.index');
+});
+
+Route::controller(SubjectController::class)->group(function() {
+    Route::post('/subject/store', 'store')->name('subject.store');
 });
 
 require __DIR__.'/auth.php';

@@ -12,9 +12,18 @@ class CourseController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($id)
     {
-        //
+        $course = Course::with([
+            'grade',
+            'subject'
+        ])
+        ->where('id', $id)
+        ->first();
+
+        return Inertia::render('Course/Index', [
+            'course' => $course
+        ]);
     }
 
     public function list()

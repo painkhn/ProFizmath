@@ -14,7 +14,7 @@ const props = defineProps<{
     <MainLayout>
         <ul class="grid grid-cols-5 gap-8">
             <li v-for="(course, index) in props.courses" :key="index">
-                <Link href="/">
+                <Link :href="route('course.index', { id: course.id })">
                     <div class="w-full bg-gray-200 p-10 rounded-xl space-y-4">
                         <div>
                             <h4 class="opacity-70">
