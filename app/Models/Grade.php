@@ -9,4 +9,12 @@ class Grade extends Model
 {
     /** @use HasFactory<\Database\Factories\GradeFactory> */
     use HasFactory;
+
+    protected $fillable = [
+        'value'
+    ];
+
+    public function Course() {
+        return $this->hasMany(Course::class);
+    }
 }

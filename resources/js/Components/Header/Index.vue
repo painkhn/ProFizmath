@@ -23,6 +23,10 @@ const navLinks = [
         value: 'Контакты',
         href: '/'
     },
+    {
+        value: 'Панель администратора',
+        href: '/admin'
+    },
 ]
 
 </script>

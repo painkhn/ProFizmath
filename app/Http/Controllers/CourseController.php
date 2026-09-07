@@ -19,7 +19,14 @@ class CourseController extends Controller
 
     public function list()
     {
-        return Inertia::render('Course/List');
+        $courses = Course::with([
+            'subject',
+            'grade'
+        ])->get();
+        // dd($courses);
+        return Inertia::render('Course/List', [
+            'courses' => $courses
+        ]);
     }
 
     /**
@@ -35,7 +42,13 @@ class CourseController extends Controller
      */
     public function store(StoreCourseRequest $request)
     {
-        //
+        $course = Course::create([
+            'title' => $request->title,
+            'description' => $request->description,
+            'price' => $request->price,
+            'subject_id' => $request->subject_id,
+            'grade_id' => $request->grade_id
+        ]);
     }
 
     /**
