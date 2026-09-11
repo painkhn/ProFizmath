@@ -23,6 +23,10 @@ const navLinks = [
         value: 'Контакты',
         href: '/'
     },
+    
+]
+
+const adminNavLinks = [
     {
         value: 'Панель администратора',
         href: '/admin'
@@ -47,11 +51,17 @@ const navLinks = [
                     </NavLink>
                     <span class="pointer-events-none" v-if="index !== navLinks.length - 1">•</span>
                 </li>
+                <li v-for="(item, index) in adminNavLinks" :key="index" v-if="$page.props.auth.user && $page.props.auth.user.role === 'admin'">
+                    <span class="pointer-events-none mr-4">•</span>
+                    <NavLink :href="item.href">
+                        {{ item.value }}
+                    </NavLink>
+                </li>
             </ul>
         </nav>
         <div class="fixed -top-5 right-0 bg-gray-200 px-4 py-2 rounded-bl-xl border border-gray-300">
             <ul class="flex items-center gap-4">
-                <li v-if="$page.props.auth">
+                <li v-if="$page.props.auth.user">
                     <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                         class="lucide lucide-shopping-cart">
@@ -61,7 +71,7 @@ const navLinks = [
                         <circle cx="8" cy="20" r="2" />
                     </svg>
                 </li>
-                <li v-if="$page.props.auth">
+                <li v-if="$page.props.auth.user">
                     <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                         class="lucide lucide-heart">

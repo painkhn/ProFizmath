@@ -15,11 +15,12 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('subject_id');
             $table->unsignedBigInteger('grade_id');
+            $table->unsignedBigInteger('teacher_id');
 
             $table->string('title');
             $table->text('description');
             $table->text('language');
-            $table->text('format');
+            $table->text('course_format');
             $table->text('image')->nullable();
             $table->integer('price');
             $table->time('duration');
@@ -29,6 +30,7 @@ return new class extends Migration
 
             $table->foreign('subject_id')->references('id')->on('subjects')->onDelete('cascade');
             $table->foreign('grade_id')->references('id')->on('grades')->onDelete('cascade');
+            $table->foreign('teacher_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

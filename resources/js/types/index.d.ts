@@ -2,6 +2,7 @@ export interface User {
     id: number;
     name: string;
     email: string;
+    role: string;
     email_verified_at?: string;
 }
 
@@ -23,6 +24,10 @@ export interface Course {
     price: BigInteger;
     grade: Grade;
     subject: Subject;
+    teacher: User;
+    language: string;
+    duration: string;
+    course_format: string;
 }
 
 export type PageProps<

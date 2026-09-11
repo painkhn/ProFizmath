@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Course;
+use App\Models\User;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -13,6 +15,20 @@ use Inertia\Response;
 
 class ProfileController extends Controller
 {
+    /** 
+     * Displat the user's profile
+    */
+    public function index($id)
+    {
+        $user = User::findOrFail($id);
+        $courses = Course::where('teacher_id', $id)->get();
+
+        return Inertia::render('Profile/Index', [
+            'user' => $user,
+            'courses' => $courses
+        ]);
+    }
+
     /**
      * Display the user's profile form.
      */

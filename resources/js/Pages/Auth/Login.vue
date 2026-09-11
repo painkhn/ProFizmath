@@ -26,10 +26,6 @@ const submit = () => {
         <form @submit.prevent="submit" class="space-y-4 max-w-xl mx-auto">
             <h2>Регистрация в ПРО ФизМат</h2>
             <div>
-                <label>Имя пользователя</label>
-                <input type="text" class="w-full py-2 bg-gray-200" v-model="form.name">
-            </div>
-            <div>
                 <label>Электронная почта</label>
                 <input type="email" class="w-full py-2 bg-gray-200" v-model="form.email">
             </div>

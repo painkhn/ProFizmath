@@ -16,7 +16,11 @@ class Course extends Model
         'image',
         'price',
         'subject_id',
-        'grade_id'
+        'grade_id',
+        'teacher_id',
+        'duration',
+        'language',
+        'course_format'
     ];
 
     public function Grade() {
@@ -25,5 +29,9 @@ class Course extends Model
 
     public function Subject() {
         return $this->belongsTo(Subject::class);
+    }
+
+    public function Teacher() {
+        return $this->belongsTo(User::class);
     }
 }

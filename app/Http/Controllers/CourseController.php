@@ -16,7 +16,8 @@ class CourseController extends Controller
     {
         $course = Course::with([
             'grade',
-            'subject'
+            'subject',
+            'teacher'
         ])
         ->where('id', $id)
         ->first();
@@ -56,7 +57,11 @@ class CourseController extends Controller
             'description' => $request->description,
             'price' => $request->price,
             'subject_id' => $request->subject_id,
-            'grade_id' => $request->grade_id
+            'grade_id' => $request->grade_id,
+            'teacher_id' => $request->teacher_id,
+            'language' => $request->language,
+            'duration' => $request->duration,
+            'course_format' => $request->course_format,
         ]);
     }
 

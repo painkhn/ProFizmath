@@ -23,6 +23,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::controller(ProfileController::class)->group(function() {
+    Route::get('/user/{id}', 'index')->name('profile.index');
+});
+
 Route::controller(CourseController::class)->group(function() {
     Route::get('/course/{title}', 'index')->name('course.index');
     Route::get('/courses', 'list')->name('course.list');
