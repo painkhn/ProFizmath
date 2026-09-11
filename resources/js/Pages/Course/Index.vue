@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import MainLayout from '@/Layouts/MainLayout.vue';
 import { Course } from '@/types';
-import { Head } from '@inertiajs/vue3';
+import { Head, Link } from '@inertiajs/vue3';
 
 const props = defineProps<{
     course: Course
@@ -36,7 +36,7 @@ const props = defineProps<{
                     </svg>
                 </button>
                 <p><span class="font-semibold">Длительность курса:</span> {{ props.course.duration }}</p>
-                <p><span class="font-semibold">Преподователь:</span> {{ props.course.teacher.name }}</p>
+                <Link class="inline-block" :href="route('profile.index', { id: props.course.teacher.id })"><span class="font-semibold">Преподователь:</span> {{ props.course.teacher.name }}</Link>
                 <p><span class="font-semibold">Формат:</span> {{ props.course.course_format }}</p>
                 <p><span class="font-semibold">Язык:</span> {{ props.course.language }}</p>
                 <p><span class="font-semibold">Стоимость:</span> {{ props.course.price }} ₽</p>
