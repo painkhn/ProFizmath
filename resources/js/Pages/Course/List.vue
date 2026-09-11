@@ -12,7 +12,7 @@ const props = defineProps<{
     <Head title="Курсы" />
 
     <MainLayout>
-        <ul class="grid grid-cols-5 gap-8">
+        <ul class="grid grid-cols-5 gap-8" v-if="props.courses && props.courses?.length >= 1">
             <li v-for="(course, index) in props.courses" :key="index">
                 <Link :href="route('course.index', { id: course.id })">
                     <div class="w-full bg-gray-200 p-10 rounded-xl space-y-4">
@@ -41,5 +41,8 @@ const props = defineProps<{
                 </Link>
             </li>
         </ul>
+        <p v-else>
+            Не удалось загрузить курсы 😢
+        </p>
     </MainLayout>
 </template>

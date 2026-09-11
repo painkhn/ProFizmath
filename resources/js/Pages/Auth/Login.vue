@@ -1,16 +1,12 @@
 <script setup lang="ts">
 
+import AuthLayout from '@/Layouts/AuthLayout.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
 
-defineProps<{
-    canResetPassword?: boolean;
-    status?: string;
-}>();
-
 const form = useForm({
+    name: '',
     email: '',
     password: '',
-    remember: false,
 });
 
 const submit = () => {
@@ -23,71 +19,30 @@ const submit = () => {
 </script>
 
 <template>
-    <GuestLayout>
-        <Head title="Log in" />
 
-        <div v-if="status" class="mb-4 text-sm font-medium text-green-600">
-            {{ status }}
-        </div>
+    <Head title="Регистрация" />
 
-        <form @submit.prevent="submit">
+    <AuthLayout>
+        <form @submit.prevent="submit" class="space-y-4 max-w-xl mx-auto">
+            <h2>Регистрация в ПРО ФизМат</h2>
             <div>
-                <InputLabel for="email" value="Email" />
-
-                <TextInput
-                    id="email"
-                    type="email"
-                    class="mt-1 block w-full"
-                    v-model="form.email"
-                    required
-                    autofocus
-                    autocomplete="username"
-                />
-
-                <InputError class="mt-2" :message="form.errors.email" />
+                <label>Имя пользователя</label>
+                <input type="text" class="w-full py-2 bg-gray-200" v-model="form.name">
             </div>
-
-            <div class="mt-4">
-                <InputLabel for="password" value="Password" />
-
-                <TextInput
-                    id="password"
-                    type="password"
-                    class="mt-1 block w-full"
-                    v-model="form.password"
-                    required
-                    autocomplete="current-password"
-                />
-
-                <InputError class="mt-2" :message="form.errors.password" />
+            <div>
+                <label>Электронная почта</label>
+                <input type="email" class="w-full py-2 bg-gray-200" v-model="form.email">
             </div>
-
-            <div class="mt-4 block">
-                <label class="flex items-center">
-                    <Checkbox name="remember" v-model:checked="form.remember" />
-                    <span class="ms-2 text-sm text-gray-600"
-                        >Remember me</span
-                    >
-                </label>
+            <div>
+                <label>Пароль</label>
+                <input type="password" class="w-full py-2 bg-gray-200" v-model="form.password">
             </div>
-
-            <div class="mt-4 flex items-center justify-end">
-                <Link
-                    v-if="canResetPassword"
-                    :href="route('password.request')"
-                    class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                >
-                    Forgot your password?
-                </Link>
-
-                <PrimaryButton
-                    class="ms-4"
-                    :class="{ 'opacity-25': form.processing }"
-                    :disabled="form.processing"
-                >
-                    Log in
-                </PrimaryButton>
-            </div>
+            <button type="submit" class="w-full py-2 bg-gray-200">
+                Войти
+            </button>
+            <span class="inline-block text-sm">
+                Нет аккаунта? <Link href="/register" class="text-blue-600 font-semibold transition-all hover:text-blue-400">Создать аккаунт</Link>
+            </span>
         </form>
-    </GuestLayout>
+    </AuthLayout>
 </template>

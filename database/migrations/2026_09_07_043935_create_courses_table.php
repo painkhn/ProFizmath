@@ -18,8 +18,11 @@ return new class extends Migration
 
             $table->string('title');
             $table->text('description');
+            $table->text('language');
+            $table->text('format');
             $table->text('image')->nullable();
             $table->integer('price');
+            $table->time('duration');
 
             $table->softDeletes();
             $table->timestamps();
