@@ -18,22 +18,22 @@ const props = defineProps<{
             <div class="space-y-8">
                 <div class="p-4 bg-gray-200 border border-gray-300 rounded-xl flex gap-8">
                     <img src="/images/default_avatar.png" alt=""
-                        class="max-w-xs w-full rounded-md border border-gray-300">
+                        class="max-w-32 w-full rounded-md border border-gray-300">
                     <ul class="space-y-4">
                         <li>
-                            <p class="text-4xl font-semibold">{{ props.user.name }}</p>
+                            <p class="text-3xl font-semibold">{{ props.user.name }}</p>
                         </li>
                         <li>
-                            <p class="text-2xl font-semibold">{{ props.user.email }}</p>
+                            <p class="text-xl font-semibold">{{ props.user.email }}</p>
                         </li>
                         <li>
-                            <p class="text-2xl font-semibold" v-if="props.user.role === 'teacher'">
+                            <p class="text-xl font-semibold" v-if="props.user.role === 'teacher'">
                                 Преподаватель
                             </p>
-                            <p class="text-2xl font-semibold" v-if="props.user.role === 'admin'">
+                            <p class="text-xl font-semibold" v-if="props.user.role === 'admin'">
                                 Администратор
                             </p>
-                            <p class="text-2xl font-semibold" v-if="props.user.role === 'student'">
+                            <p class="text-xl font-semibold" v-if="props.user.role === 'student'">
                                 Ученик
                             </p>
                         </li>

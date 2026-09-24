@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Grade, Subject, User } from '@/types';
+import { Grade, Subject, User, CourseForm, Course } from '@/types';
 import { useForm } from '@inertiajs/vue3';
 
 const props = defineProps<{
@@ -8,7 +8,7 @@ const props = defineProps<{
     teachers: User[] | undefined
 }>()
 
-const form = useForm({
+const form = useForm<CourseForm>({
     title: '',
     description: '',
     price: '',
@@ -18,18 +18,23 @@ const form = useForm({
     grade_id: '',
     subject_id: '',
     teacher_id: '',
+    image: null
 })
 
-const submit = () => {
-    console.log(form.teacher_id);
-    
-    form.post(route('course.store')), {
+function handleImage(e: Event): void {
+    const target = e.target as HTMLInputElement
+    form.image = target.files?.[0] ?? null
+}
+
+
+const submit = (): void => {
+    form.post(route('course.store'), {
+        forceFormData: true, // обязательно для файлов
         onSuccess: () => {
             form.reset()
-            console.log('заебись');
-
-        }
-    }
+            console.log('заебись')
+        },
+    })
 }
 </script>
 
@@ -58,6 +63,12 @@ const submit = () => {
         </div>
         <div class="flex flex-col">
             <label>
+                Изображение
+            </label>
+            <input type="file" @change="handleImage" class="bg-gray-200 p-2 border border-black">
+        </div>
+        <div class="flex flex-col">
+            <label>
                 Язык
             </label>
             <input type="text" v-model="form.language" class="bg-gray-200">
@@ -79,7 +90,7 @@ const submit = () => {
                 Предмет
             </label>
             <select type="select" class="bg-gray-200" v-model="form.subject_id">
-                <option selected>Выберите предмет</option>
+                <option disabled value="">Выберите предмет</option>
                 <option :value="subject.id" v-for="(subject, index) in props.subjects" :key="index">
                     {{ subject.title }}
                 </option>

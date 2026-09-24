@@ -22,8 +22,11 @@ class CourseController extends Controller
         ->where('id', $id)
         ->first();
 
+        $teacherCourses = Course::where('teacher_id', $course->teacher_id)->get();
+
         return Inertia::render('Course/Index', [
-            'course' => $course
+            'course' => $course,
+            'teacherCourses' => $teacherCourses,
         ]);
     }
 
@@ -52,17 +55,16 @@ class CourseController extends Controller
      */
     public function store(StoreCourseRequest $request)
     {
-        $course = Course::create([
-            'title' => $request->title,
-            'description' => $request->description,
-            'price' => $request->price,
-            'subject_id' => $request->subject_id,
-            'grade_id' => $request->grade_id,
-            'teacher_id' => $request->teacher_id,
-            'language' => $request->language,
-            'duration' => $request->duration,
-            'course_format' => $request->course_format,
-        ]);
+        $data = $request->validated();
+
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $name = uniqid() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('images/courses'), $name);
+            $data['image'] = '/images/courses/' . $name;
+        }
+
+        Course::create($data);
     }
 
     /**

@@ -6,6 +6,8 @@ import Header from '@/Components/Header/Index.vue'
     <Header />
 
     <main class="p-8">
-        <slot />
+        <div class="w-2/3 mx-auto">
+            <slot />
+        </div>
     </main>
 </template>

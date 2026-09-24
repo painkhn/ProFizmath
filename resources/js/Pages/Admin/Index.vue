@@ -16,7 +16,7 @@ const props = defineProps<{
     <Head title="Панель администратора" />
 
     <MainLayout>
-        <div class="grid grid-cols-3">
+        <div class="grid grid-cols-3 gap-8">
             <CourseStore :subjects="props.subjects" :grades="props.grades" :teachers="props.teachers" />
             <SubjectStore />
         </div>
