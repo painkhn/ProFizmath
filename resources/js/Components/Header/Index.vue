@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Link } from '@inertiajs/vue3';
+import { Link, useForm } from '@inertiajs/vue3';
 import NavLink from './NavLink.vue';
 
 const navLinks = [
@@ -23,7 +23,7 @@ const navLinks = [
         value: 'Контакты',
         href: '/'
     },
-    
+
 ]
 
 const adminNavLinks = [
@@ -33,12 +33,23 @@ const adminNavLinks = [
     },
 ]
 
+const logout = useForm({})
+
+const logoutSubmit = () => {
+    logout.post(route('logout'), {
+        onSuccess: () => {
+            console.log('успешный выход');
+        }
+    })
+}
+
 </script>
 
 <template>
     <header class="text-center py-8 space-y-4 relative">
         <h1>
-            <Link href="/" class="inline-flex flex-col bg-gradient-to-r from-gray-200 to-gray-200 px-4 rounded-xl bg-[length:0] bg-top bg-no-repeat transition-all duration-300 hover:bg-[length:100%]">
+            <Link href="/"
+                class="inline-flex flex-col bg-gradient-to-r from-gray-200 to-gray-200 px-4 rounded-xl bg-[length:0] bg-top bg-no-repeat transition-all duration-300 hover:bg-[length:100%]">
                 <span class="font-bold text-2xl">ПРО ФизМат</span>
                 <span class="opacity-80">Онлайн-школа</span>
             </Link>
@@ -51,7 +62,8 @@ const adminNavLinks = [
                     </NavLink>
                     <span class="pointer-events-none" v-if="index !== navLinks.length - 1">•</span>
                 </li>
-                <li v-for="(item, index) in adminNavLinks" :key="index" v-if="$page.props.auth.user && $page.props.auth.user.role === 'admin'">
+                <li v-for="(item, index) in adminNavLinks" :key="index"
+                    v-if="$page.props.auth.user && $page.props.auth.user.role === 'admin'">
                     <span class="pointer-events-none mr-4">•</span>
                     <NavLink :href="item.href">
                         {{ item.value }}
@@ -61,6 +73,7 @@ const adminNavLinks = [
         </nav>
         <div class="fixed -top-5 right-0 bg-gray-200 px-4 py-2 rounded-bl-xl border border-gray-300">
             <ul class="flex items-center gap-4">
+                <!-- cart -->
                 <li v-if="$page.props.auth.user">
                     <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -71,6 +84,7 @@ const adminNavLinks = [
                         <circle cx="8" cy="20" r="2" />
                     </svg>
                 </li>
+                <!-- favorites -->
                 <li v-if="$page.props.auth.user">
                     <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -79,9 +93,33 @@ const adminNavLinks = [
                             d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5" />
                     </svg>
                 </li>
+                <li v-if="$page.props.auth.user">
+                    <Link :href="route('profile.index', { id: $page.props.auth.user.id })">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="lucide lucide-user preview-icon">
+                            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                            <circle cx="12" cy="7" r="4" />
+                        </svg>
+                    </Link>
+                </li>
+                <!-- logout -->
+                <li v-if="$page.props.auth.user">
+                    <form @submit.prevent="logoutSubmit" class="flex">
+                        <button type="submit">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="lucide lucide-log-out preview-icon">
+                                <path d="m16 17 5-5-5-5" />
+                                <path d="M21 12H9" />
+                                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                            </svg>
+                        </button>
+                    </form>
+                </li>
                 <li v-else>
                     <Link href="/register">
-                       <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                             class="lucide lucide-square-user-round">
                             <path d="M18 21a6 6 0 0 0-12 0" />
