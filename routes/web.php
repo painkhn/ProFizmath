@@ -31,6 +31,7 @@ Route::controller(CourseController::class)->group(function() {
     Route::get('/course/{title}', 'index')->name('course.index');
     Route::get('/courses', 'list')->name('course.list');
     Route::post('/course/store', 'store')->name('course.store');
+    Route::get('/course/edit/{id}', 'edit')->name('course.edit');
 });
 
 Route::controller(AdminController::class)->group(function() {

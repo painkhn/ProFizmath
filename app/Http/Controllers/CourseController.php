@@ -80,9 +80,13 @@ class CourseController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Course $course)
+    public function edit(Course $course, $id)
     {
-        //
+        $course = Course::where('id', $id)->first();
+
+        return Inertia::render('Course/Edit', [
+            'course' => $course,
+        ]);
     }
 
     /**
