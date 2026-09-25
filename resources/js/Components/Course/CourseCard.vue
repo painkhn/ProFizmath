@@ -8,7 +8,7 @@ const props = defineProps<{
 </script>
 
 <template>
-    <li v-for="(course, index) in props.courses" :key="index" class="space-y-4 p-4 rounded-md border border-gray-200">
+    <li v-for="(course, index) in props.courses" :key="course.id" class="space-y-4 p-4 rounded-md border border-gray-200">
         <Link :href="route('course.index', { id: course.id })">
             <div class="w-full bg-gray-200 p-6 rounded-xl space-y-4">
                 <div>

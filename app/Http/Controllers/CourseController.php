@@ -38,7 +38,9 @@ class CourseController extends Controller
         ])->get();
         // dd($courses);
         return Inertia::render('Course/List', [
-            'courses' => $courses
+            'courses' => $courses,
+            'subjects' => \App\Models\Subject::select('id', 'title')->get(),
+            'grades'   => \App\Models\Grade::select('id', 'value')->get(),
         ]);
     }
 
