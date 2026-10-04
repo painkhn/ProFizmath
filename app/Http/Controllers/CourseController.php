@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Course;
+use App\Models\{Course, Subject, User, Grade};
 use App\Http\Requests\StoreCourseRequest;
 use App\Http\Requests\UpdateCourseRequest;
 use Inertia\Inertia;
@@ -39,8 +39,8 @@ class CourseController extends Controller
         // dd($courses);
         return Inertia::render('Course/List', [
             'courses' => $courses,
-            'subjects' => \App\Models\Subject::select('id', 'title')->get(),
-            'grades'   => \App\Models\Grade::select('id', 'value')->get(),
+            'subjects' => Subject::select('id', 'title')->get(),
+            'grades'   => Grade::select('id', 'value')->get(),
         ]);
     }
 
@@ -83,11 +83,16 @@ class CourseController extends Controller
     public function edit(Course $course, $id)
     {
         $course = Course::with('grade', 'subject', 'teacher')->where('id', $id)->first();
-
+        $subjects = Subject::all();
+        $grades = Grade::all();
+        $teachers = User::where('role', 'teacher')->get();
         // dd($course);
 
         return Inertia::render('Course/Edit', [
             'course' => $course,
+            'subjects' => $subjects,
+            'grades' => $grades,
+            'teachers' => $teachers,
         ]);
     }
 
