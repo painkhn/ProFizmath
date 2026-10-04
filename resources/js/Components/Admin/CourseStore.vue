@@ -11,7 +11,7 @@ const props = defineProps<{
 const form = useForm<CourseForm>({
     title: '',
     description: '',
-    price: '',
+    price: 0,
     course_format: '',
     language: '',
     duration: '',
@@ -25,7 +25,6 @@ function handleImage(e: Event): void {
     const target = e.target as HTMLInputElement
     form.image = target.files?.[0] ?? null
 }
-
 
 const submit = (): void => {
     form.post(route('course.store'), {

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Course } from '@/types';
+import { Link } from '@inertiajs/vue3';
 
 const props = defineProps<{
     course: Course

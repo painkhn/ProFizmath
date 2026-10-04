@@ -33,7 +33,7 @@ export interface Course {
 export interface CourseForm {
     title: string;
     description: string;
-    price: string;
+    price: number;
     course_format: string;
     language: string;
     duration: string;

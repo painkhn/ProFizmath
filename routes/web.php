@@ -32,6 +32,7 @@ Route::controller(CourseController::class)->group(function() {
     Route::get('/courses', 'list')->name('course.list');
     Route::post('/course/store', 'store')->name('course.store');
     Route::get('/course/edit/{id}', 'edit')->name('course.edit');
+    Route::patch('/course/edit/{id}/update', 'update')->name('course.update');
 });
 
 Route::controller(AdminController::class)->group(function() {

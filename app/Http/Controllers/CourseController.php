@@ -82,7 +82,9 @@ class CourseController extends Controller
      */
     public function edit(Course $course, $id)
     {
-        $course = Course::where('id', $id)->first();
+        $course = Course::with('grade', 'subject', 'teacher')->where('id', $id)->first();
+
+        // dd($course);
 
         return Inertia::render('Course/Edit', [
             'course' => $course,
@@ -92,9 +94,20 @@ class CourseController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateCourseRequest $request, Course $course)
+    public function update(UpdateCourseRequest $request, $id)
     {
-        //
+        $data = $request->validated();
+
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $name = uniqid() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('images/courses'), $name);
+            $data['image'] = '/images/courses' . $name;
+        }
+
+        $course = Course::where('id', $id)->first();
+
+        $course->update($data);
     }
 
     /**
