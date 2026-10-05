@@ -118,8 +118,20 @@ class CourseController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Course $course)
+    public function destroy(Course $course, $id)
     {
-        //
+        $course = Course::findOrFail($id);
+
+        $course->delete();
+
+        return redirect()->route('admin.index');
+    }
+
+    public function restore($id)
+    {
+        $course = Course::withTrashed()->findOrFail($id);
+        $course->restore();
+
+        return redirect()->back();
     }
 }

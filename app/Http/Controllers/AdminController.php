@@ -23,11 +23,14 @@ class AdminController extends Controller
         ->orderByDesc('id')
         ->get();
 
+        $deletedCourses = Course::onlyTrashed()->get();
+
         return Inertia::render('Admin/Index', [
             'subjects' => $subjects,
             'grades' => $grades,
             'teachers' => $teachers,
             'courses' => $courses,
+            'deletedCourses' => $deletedCourses,
             'filters'  => $request->only('search'),
         ]);
     }

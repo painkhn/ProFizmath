@@ -33,6 +33,8 @@ Route::controller(CourseController::class)->group(function() {
     Route::post('/course/store', 'store')->name('course.store');
     Route::get('/course/edit/{id}', 'edit')->name('course.edit');
     Route::patch('/course/edit/{id}/update', 'update')->name('course.update');
+    Route::delete('/course/delete/{id}', 'destroy')->name('course.destroy');
+    Route::patch('/course/restore/{id}', 'restore')->name('course.restore');
 });
 
 Route::controller(AdminController::class)->group(function() {

@@ -5,7 +5,7 @@ import Header from '@/Components/Header/Index.vue'
 <template>
     <Header />
 
-    <main class="p-8">
+    <main class="p-8 relative">
         <div class="w-2/3 mx-auto">
             <slot />
         </div>

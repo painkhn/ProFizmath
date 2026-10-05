@@ -17,6 +17,7 @@ const props = defineProps<{
         grade?: string | number
         teacher?: string | number
     }
+    deletedCourses: Course[] | undefined
 }>()
 
 const search = ref(props.filters.search ?? '')
@@ -39,6 +40,16 @@ watch(search, () => {
     clearTimeout(timer)
     timer = setTimeout(applySearch, 300)
 })
+
+const form = useForm()
+
+const restore = (id: number) => {
+    form.patch(route('course.restore', {id}), {
+        onSuccess: () => {
+            console.log('заебись');
+        }
+    })
+}
 </script>
 
 <template>
@@ -81,6 +92,30 @@ watch(search, () => {
                                     d="M18.375 2.625a1 1 0 0 1 3 3l-9.013 9.014a2 2 0 0 1-.853.505l-2.873.84a.5.5 0 0 1-.62-.62l.84-2.873a2 2 0 0 1 .506-.852z" />
                             </svg>
                         </Link>
+                    </li>
+                </ul>
+                <ul class="space-y-4">
+                    <li v-for="(course, index) in deletedCourses" :key="course.id" class="grid grid-cols-5 gap-4 opacity-50">
+                        <Link :href="route('course.index', { id: course.id })" class="bg-gray-200 p-4 block col-span-4">
+                            <h3 class="font-semibold">
+                                {{ course.title }}
+                            </h3>
+                            <p class="line-clamp-1 opacity-80 text-sm">
+                                {{ course.description }}
+                            </p>
+                        </Link>
+                        <form @submit.prevent="restore(course.id)" class="w-full flex items-center justify-center">
+                            <button type="submit">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="lucide lucide-heart-plus preview-icon">
+                                    <path
+                                        d="m14.479 19.374-.971.939a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5a5.2 5.2 0 0 1-.219 1.49" />
+                                    <path d="M15 15h6" />
+                                    <path d="M18 12v6" />
+                                </svg>
+                            </button>
+                        </form>
                     </li>
                 </ul>
             </div>
