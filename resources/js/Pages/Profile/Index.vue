@@ -1,13 +1,27 @@
 <script setup lang="ts">
+import UpdatePasswordModal from '@/Components/Profile/UpdatePasswordModal.vue';
 import MainLayout from '@/Layouts/MainLayout.vue';
 import { Course, User } from '@/types';
-import { Head, Link } from '@inertiajs/vue3';
+import { Head, Link, useForm } from '@inertiajs/vue3';
 
 const props = defineProps<{
     user: User
     courses: Course[] | undefined
 }>()
 
+const form = useForm({
+    name: props.user.name,
+    email: props.user.email
+})
+
+const submit = () => {
+    form.patch(route('profile.update'), {
+        onSuccess: () => {
+            console.log('заебись');
+            
+        }
+    })
+}
 </script>
 
 <template>
@@ -40,25 +54,22 @@ const props = defineProps<{
                     </ul>
                 </div>
                 <div>
-                    <form class="w-1/2 space-y-4">
+                    <form @submit.prevent="submit()" class="w-1/2 space-y-4">
                         <h3 class="font-semibold text-xl">
                             Редактировать аккаунт
                         </h3>
                         <div class="flex flex-col">
                             <label for="">Имя пользователя</label>
-                            <input type="text">
+                            <input type="text" v-model="form.name">
                         </div>
                         <div class="flex flex-col">
                             <label for="">Электронная почта</label>
-                            <input type="email">
-                        </div>
-                        <div class="flex flex-col">
-                            <label for="">Пароль</label>
-                            <input type="password">
+                            <input type="email" v-model="form.email">
                         </div>
                         <button type="submit" class="w-full bg-gray-200 py-2 rounded-md">
                             Сохранить изменения
                         </button>
+                        <UpdatePasswordModal />
                     </form>
                 </div>
             </div>
