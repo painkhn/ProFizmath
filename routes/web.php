@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SubjectController;
@@ -45,6 +46,10 @@ Route::controller(AdminController::class)->group(function() {
 
 Route::controller(SubjectController::class)->group(function() {
     Route::post('/subject/store', 'store')->name('subject.store');
+});
+
+Route::controller(CartController::class)->group(function() {
+    Route::get('/cart', 'index')->name('cart.index');
 });
 
 require __DIR__.'/auth.php';

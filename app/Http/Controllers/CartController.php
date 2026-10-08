@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Cart;
 use App\Http\Requests\StoreCartRequest;
 use App\Http\Requests\UpdateCartRequest;
+use Inertia\Inertia;
 
 class CartController extends Controller
 {
@@ -13,7 +14,7 @@ class CartController extends Controller
      */
     public function index()
     {
-        //
+        return Inertia::render('Cart/Index');
     }
 
     /**
