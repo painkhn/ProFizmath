@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import UpdateAvatarModal from '@/Components/Profile/UpdateAvatarModal.vue';
 import UpdatePasswordModal from '@/Components/Profile/UpdatePasswordModal.vue';
 import MainLayout from '@/Layouts/MainLayout.vue';
 import { Course, User } from '@/types';
@@ -31,8 +32,9 @@ const submit = () => {
         <div class="grid grid-cols-2 gap-8">
             <div class="space-y-8">
                 <div class="p-4 bg-gray-200 border border-gray-300 rounded-xl flex gap-8">
+                    <UpdateAvatarModal :user="props.user" v-if="$page.props.auth.user.id === props.user.id" />
                     <img src="/images/default_avatar.png" alt=""
-                        class="max-w-32 w-full rounded-md border border-gray-300">
+                        class="max-w-32 w-full rounded-md border border-gray-300" v-else>
                     <ul class="space-y-4">
                         <li>
                             <p class="text-3xl font-semibold">{{ props.user.name }}</p>

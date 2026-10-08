@@ -16,7 +16,6 @@ const submit = () => {
         },
         onError: () => {
             console.log('не заебись');
-            
         }
     })
 }

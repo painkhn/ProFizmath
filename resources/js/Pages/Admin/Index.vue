@@ -10,6 +10,7 @@ const props = defineProps<{
     subjects: Subject[] | undefined
     grades: Grade[] | undefined
     teachers: User[] | undefined
+    students: User[] | undefined
     courses: Course[]
     filters: {
         search?: string
@@ -58,7 +59,7 @@ const restore = (id: number) => {
     <MainLayout>
         <div class="grid grid-cols-3 gap-8">
             <CourseStore :subjects="props.subjects" :grades="props.grades" :teachers="props.teachers" />
-            <SubjectStore />
+            <SubjectStore :students="props.students" :teachers="props.teachers" />
             <div class="space-y-6">
                 <h2>
                     Поиск курсов

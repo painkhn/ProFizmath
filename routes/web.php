@@ -18,13 +18,13 @@ Route::get('/', function () {
 })->name('home');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
 Route::controller(ProfileController::class)->group(function() {
     Route::get('/user/{id}', 'index')->name('profile.index');
+    Route::post('/profile/update_avatar', 'updateAvatar')->name('profile.update_avatar');
 });
 
 Route::controller(CourseController::class)->group(function() {
@@ -39,6 +39,8 @@ Route::controller(CourseController::class)->group(function() {
 
 Route::controller(AdminController::class)->group(function() {
     Route::get('/admin', 'index')->name('admin.index');
+    Route::patch('/admin/user/{user}/addTeacher', 'addTeacher')->name('admin.add_teacher');
+    Route::patch('/admin/user/{user}/makeStudent', 'makeStudent')->name('admin.make_student');
 });
 
 Route::controller(SubjectController::class)->group(function() {

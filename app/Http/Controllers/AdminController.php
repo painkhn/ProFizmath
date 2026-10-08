@@ -13,6 +13,7 @@ class AdminController extends Controller
         $subjects = Subject::all();
         $grades = Grade::all();
         $teachers = User::where('role', 'teacher')->get();
+        $students = User::where('role', 'student')->get();
         $courses = Course::query()
         ->with(['subject', 'grade', 'teacher'])
         ->when($request->filled('search'), function ($q) use ($request) {
@@ -29,9 +30,26 @@ class AdminController extends Controller
             'subjects' => $subjects,
             'grades' => $grades,
             'teachers' => $teachers,
+            'students' => $students,
             'courses' => $courses,
             'deletedCourses' => $deletedCourses,
             'filters'  => $request->only('search'),
         ]);
+    }
+
+    public function addTeacher(User $user)
+    {
+        $user->role = 'teacher';
+        $user->save();
+
+        return redirect()->back();
+    }
+
+    public function makeStudent(User $user)
+    {
+        $user->role = 'student';
+        $user->save();
+
+        return redirect()->back();
     }
 }

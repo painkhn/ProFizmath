@@ -56,6 +56,30 @@ class ProfileController extends Controller
         return redirect()->back();
     }
 
+    public function updateAvatar(Request $request)
+    {
+        $validated = $request->validate([
+            'avatar_change' => 'required|image|mimes:jpg,png,jpeg,webp|max:2048'
+        ]);
+
+        $user = Auth::user();
+        $avatarPath = public_path($user->avatar);
+
+        if ($user->avatar && file_exists($avatarPath)) {
+            unlink($avatarPath);
+        }
+
+        $name = time() . "." . $request->file('avatar_change')->extension();
+        $destination = 'avatars'; // Путь для хранения аватарок
+        $path = $request->file('avatar_change')->storeAs($destination, $name, 'public');
+
+        $user->where('id', $user->id)->update([
+            'avatar' => $path
+        ]);
+
+        return redirect()->back()->with('success', 'Аватарка успешно изменена');
+    }
+
     /**
      * Delete the user's account.
      */
